@@ -1,6 +1,7 @@
 package guru.springframework.spring5recipeapp.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,6 +33,11 @@ public class Recipe {
             joinColumns = @JoinColumn(name= "recipe_id"),
             inverseJoinColumns = @JoinColumn(name="category_id"))
     private Set<Category> categories;
+
+    public Recipe() {
+        ingredients = new HashSet<>();
+        categories = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
