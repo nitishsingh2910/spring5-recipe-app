@@ -40,6 +40,21 @@ public class Recipe {
         categories = new HashSet<>();
     }
 
+    public void setNotes(Notes notes) {
+        this.notes = notes;
+        notes.setRecipe(this);
+    }
+
+    public Notes getNotes() {
+        return notes;
+    }
+
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
@@ -104,36 +119,20 @@ public class Recipe {
         this.directions = directions;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public Notes getNotes() {
-        return notes;
-    }
-
-    public void setNotes(Notes notes) {
-
-        this.notes = notes;
-        notes.setRecipe(this);
-    }
-
-    public Recipe addIngredient(Ingredient ingredient){
-        ingredient.setRecipe(this);
-        this.ingredients.add(ingredient);
-        return this;
-    }
-
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public Difficulty getDifficulty() {
