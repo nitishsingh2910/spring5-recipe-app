@@ -4,10 +4,8 @@ import guru.springframework.spring5recipeapp.domain.Recipe;
 import guru.springframework.spring5recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -16,10 +14,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
 class RecipeControllerTest {
 
-    @InjectMocks
     RecipeController controller;
 
     @Mock
@@ -27,8 +23,8 @@ class RecipeControllerTest {
 
     @BeforeEach
     void setUp() {
-//        MockitoAnnotations.initMocks(this);
-//        controller = new RecipeController(recipeService);
+        MockitoAnnotations.initMocks(this);
+        controller = new RecipeController(recipeService);
     }
 
     @Test
