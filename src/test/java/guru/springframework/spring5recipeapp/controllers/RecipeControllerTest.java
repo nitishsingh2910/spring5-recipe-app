@@ -51,7 +51,7 @@ class RecipeControllerTest {
     void testGetNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("recipe/new"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
