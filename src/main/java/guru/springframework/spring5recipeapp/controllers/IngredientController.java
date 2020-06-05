@@ -29,21 +29,21 @@ public class IngredientController {
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
-    @RequestMapping("recipe/{id}/ingredients")
+    @RequestMapping("/recipe/{id}/ingredients")
     public String viewIngredients(@PathVariable String id, Model model){
         log.debug("Getting ingredient list for recipe id "+id);
         model.addAttribute(recipeService.findById(Long.valueOf(id)));
         return "recipe/ingredient/list";
     }
 
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/show")
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/show")
     public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model){
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
     }
 
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model){
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
@@ -51,7 +51,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping("recipe/{recipeId}/ingredient")
+    @PostMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand){
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(ingredientCommand);
         log.debug("saved recipe id:" + savedCommand.getRecipeId());
@@ -75,5 +75,12 @@ public class IngredientController {
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
 
         return "recipe/ingredient/ingredientform";
+    }
+
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id){
+        log.debug("deleting ingredient id:" + id);
+        ingredientService.deleteById(Long.valueOf(recipeId), Long.valueOf(id));
+        return "redirect:/recipe/"+recipeId+"/ingredients";
     }
 }
