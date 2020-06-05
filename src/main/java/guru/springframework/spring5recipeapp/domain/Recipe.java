@@ -21,7 +21,7 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
     @Lob
-    private byte[] image;
+    private Byte[] image;
 
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
@@ -129,11 +129,11 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public byte[] getImage() {
+    public Byte[] getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(Byte[] image) {
         this.image = image;
     }
 
