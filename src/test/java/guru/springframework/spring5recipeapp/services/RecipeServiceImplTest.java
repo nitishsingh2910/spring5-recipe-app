@@ -3,7 +3,9 @@ package guru.springframework.spring5recipeapp.services;
 import guru.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import guru.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import guru.springframework.spring5recipeapp.domain.Recipe;
+import guru.springframework.spring5recipeapp.exceptions.NotFoundException;
 import guru.springframework.spring5recipeapp.repositories.RecipeRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -77,5 +79,19 @@ class RecipeServiceImplTest {
         //no 'when', since method has void return type
         //then
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void getRecipeByIdTestNotFound(){
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Assertions.assertThrows(NotFoundException.class, ()->recipeService.findById(1L));
+    }
+
+    @Test
+    void getRecipeByIdTestNumberFormatException(){
+
+        Assertions.assertThrows(NumberFormatException.class, ()->recipeService.findById(Long.valueOf("asd")));
     }
 }
