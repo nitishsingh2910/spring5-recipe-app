@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class RecipeCommand {
     private Long id;
+
     private String description;
     private Integer prepTime;
     private Integer cookTime;
